@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Page</title>
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/small.css">
+    <link rel="stylesheet" href="css/medium.css">
+    <link rel="stylesheet" href="css/large.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins&family=Roboto:wght@300;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div>
+        <header>
+            <img src="images/" alt="Hero Image">
+            <div>
+                <h1>Recipe Page</h1>
+            </div>
+        </header>
+        <nav id="recipe-nav"></nav>
+    </div>
+    <main>
+        <div id="recipe-container"></div>
+    </main>
+
+    <footer>
+        <p>Josue Cisneros &bull; Recipe Capstone</p>
+    </footer>
+
+    <script>
+        // JSON data for recipes
+        const recipes = [
+            {
+                title: "Chocolate Chip Cookies",
+                id: "chocolate-chip-cookies",
+                instructions: "Mix flour, sugar, and chocolate chips together, bake at 350°F for 12-15 minutes."
+            },
+            {
+                title: "Banana Bread",
+                id: "banana-bread",
+                instructions: "Mash bananas, mix with sugar, eggs, and flour, bake at 350°F for 60-75 minutes."
+            },
+            {
+                title: "Pasta Salad",
+                id: "pasta-salad",
+                instructions: "Boil pasta, mix with vegetables and dressing, chill before serving."
+            },
+            {
+                title: "Smoothie",
+                id: "smoothie",
+                instructions: "Blend bananas, berries, yogurt, and honey until smooth."
+            },
+            {
+                title: "Grilled Chicken",
+                id: "grilled-chicken",
+                instructions: "Grill chicken breasts for 6-8 minutes per side, until fully cooked."
+            },
+            {
+                title: "Vegetable Stir Fry",
+                id: "vegetable-stir-fry",
+                instructions: "Stir-fry mixed vegetables in soy sauce and sesame oil for 5-7 minutes."
+            }
+        ];
+
+        const nav = document.getElementById('recipe-nav');
+
+        recipes.forEach(recipe => {
+            const button = document.createElement('button');
+            button.textContent = recipe.title;
+            button.onclick = () => {
+                // Show the correct recipe section and hide others
+                document.querySelectorAll('.recipe-section').forEach(section => {
+                    if (section.id === recipe.id) {
+                        section.querySelector('.instructions').style.display = 'block';
+                    } else {
+                        section.querySelector('.instructions').style.display = 'none';
+                    }
+                });
+            };
+            nav.appendChild(button);
+        });
+
+        // Populate the recipe-container dynamically
+        const recipeContainer = document.getElementById('recipe-container');
+        recipes.forEach(recipe => {
+            const section = document.createElement('section');
+            section.id = recipe.id;
+            section.className = 'recipe-section';
+            section.innerHTML = `
+                <h2>${recipe.title}</h2>
+                <p>Delicious ${recipe.title.toLowerCase()}</p>
+                <p class="instructions" style="display: none;"><strong>Instructions:</strong> ${recipe.instructions}</p>
+            `;
+            recipeContainer.appendChild(section);
+        });
+    </script>
+    <script src="js/scripts.js" type="module"></script>
+</body>
+</html>
